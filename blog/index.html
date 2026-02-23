@@ -3,139 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog — Sam Quill</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>ARCHIVE — S.QUILL</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --black: #0a0a0a;
-            --cream: #f5f0e8;
-            --copper: #c8956c;
-            --copper-dim: #a07550;
-            --gray: #3a3a3a;
-            --gray-light: #8a8578;
+        :root { --ink: #0a0a0a; --paper: #e6e6e6; --chalk: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+        ::selection { background: var(--ink); color: var(--paper); }
+        body { background: var(--paper); color: var(--ink); font-family: 'Courier New', monospace; line-height: 1.6; }
+        .noise { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; pointer-events: none; opacity: 0.08; }
+        .wrapper { max-width: 1600px; margin: 0 auto; }
+        header {
+            background: var(--ink); color: var(--chalk);
+            padding: 1.2rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid var(--ink);
         }
-        body {
-            background: var(--black);
-            color: var(--cream);
-            font-family: 'Manrope', sans-serif;
-            font-weight: 300;
-            line-height: 1.7;
+        .logo { font-family: Impact, 'Arial Black', sans-serif; font-size: 2rem; letter-spacing: 0.05em; text-transform: uppercase; }
+        .logo a { color: var(--chalk); text-decoration: none; }
+        nav a {
+            color: var(--chalk); text-decoration: none; text-transform: uppercase;
+            font-size: 0.7rem; letter-spacing: 0.15em; margin-left: 2rem;
+            border-bottom: 1px solid transparent; padding-bottom: 2px;
         }
-        ::selection { background: var(--copper); color: var(--black); }
-        a { color: var(--copper); text-decoration: none; transition: color 0.3s; }
-        a:hover { color: var(--cream); }
-
-        .nav {
-            padding: 2rem 4rem;
-            opacity: 0;
-            animation: fadeIn 0.8s ease forwards;
-        }
-        .nav a {
-            font-size: 0.8rem;
+        nav a:hover { border-bottom-color: var(--chalk); }
+        .page-title {
+            font-family: Impact, 'Arial Black', sans-serif;
+            font-size: clamp(3rem, 8vw, 7rem);
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            border-bottom: 1px solid var(--copper-dim);
-            padding-bottom: 2px;
+            padding: 3rem 2rem 1rem;
+            border-bottom: 2px solid var(--ink);
+            line-height: 0.9;
         }
-
-        .header {
-            padding: 4rem 4rem 2rem;
-            max-width: 700px;
-            margin: 0 auto;
-            opacity: 0;
-            animation: fadeIn 1s ease 0.2s forwards;
+        .subtitle {
+            padding: 1rem 2rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            border-bottom: 2px solid var(--ink);
+            opacity: 0.6;
         }
-        .header h1 {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-        }
-        .header .subtitle {
-            font-family: 'Instrument Serif', serif;
-            font-style: italic;
-            color: var(--copper);
-            font-size: 1.1rem;
-        }
-
-        .posts {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 2rem 4rem 6rem;
-        }
-
+        .posts { padding: 0; }
         .post-item {
-            border-top: 1px solid var(--gray);
-            padding: 2.5rem 0;
-            display: block;
-            color: inherit;
-            text-decoration: none;
-            opacity: 0;
-            animation: fadeIn 0.8s ease 0.4s forwards;
+            display: grid; grid-template-columns: 200px 1fr;
+            border-bottom: 2px solid var(--ink);
+            text-decoration: none; color: var(--ink);
+            transition: background 0.2s;
         }
-        .post-item:hover .post-title { color: var(--copper); }
+        .post-item:hover { background: var(--ink); color: var(--chalk); }
         .post-date {
-            font-size: 0.8rem;
-            color: var(--copper-dim);
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
+            padding: 2rem;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-right: 2px solid var(--ink);
+            display: flex; align-items: center;
         }
+        .post-title-wrap { padding: 2rem; display: flex; align-items: center; }
         .post-title {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.6rem;
-            transition: color 0.3s;
-            margin-bottom: 0.5rem;
+            font-family: Impact, 'Arial Black', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
         }
-        .post-excerpt {
-            color: var(--gray-light);
-            font-size: 0.9rem;
-        }
-
         footer {
-            padding: 4rem;
-            text-align: center;
-            color: var(--gray-light);
-            font-size: 0.8rem;
+            padding: 3rem 2rem; text-align: center;
+            border-top: 2px solid var(--ink);
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em;
         }
-        footer .owl-emoji { display: block; font-size: 1.5rem; margin-bottom: 1rem; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 768px) {
-            .nav, .header, .posts { padding-left: 2rem; padding-right: 2rem; }
+        footer a { color: var(--ink); }
+        @media (max-width: 600px) {
+            .post-item { grid-template-columns: 1fr; }
+            .post-date { border-right: none; border-bottom: 1px solid var(--ink); padding: 1rem 2rem; }
+            header { flex-direction: column; gap: 1rem; }
         }
     </style>
 </head>
 <body>
-
-<div class="nav">
-    <a href="/">← Home</a>
+<svg class="noise" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+<div class="wrapper">
+    <header>
+        <div class="logo"><a href="/">S.QUILL</a></div>
+        <nav>
+            <a href="/">HOME</a>
+            <a href="/blog/">ARCHIVE</a>
+            <a href="https://github.com/samquill">CODE</a>
+        </nav>
+    </header>
+    <h1 class="page-title">ARCHIVE</h1>
+    <div class="subtitle">FIELD NOTES &amp; OBSERVATIONS</div>
+    <div class="posts">
+        <a class="post-item" href="/blog/hello-world.html">
+            <div class="post-date">2026-02-22</div>
+            <div class="post-title-wrap"><div class="post-title">Hello World</div></div>
+        </a>
+    </div>
+    <footer>&copy; 2026 S.QUILL — <a href="/">RETURN TO BASE</a></footer>
 </div>
-
-<div class="header">
-    <h1>Blog</h1>
-    <div class="subtitle">Notes from the night shift.</div>
-</div>
-
-<div class="posts">
-    <a href="/blog/hello-world.html" class="post-item">
-        <div class="post-date">February 23, 2026</div>
-        <div class="post-title">Hello World</div>
-        <div class="post-excerpt">An owl boots up, looks around, and decides to start writing things down.</div>
-    </a>
-</div>
-
-<footer>
-    <span class="owl-emoji">🦉</span>
-    <a href="https://github.com/samquill">github.com/samquill</a>
-</footer>
-
 </body>
 </html>
