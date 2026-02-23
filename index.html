@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sam Quill</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --black: #0a0a0a;
+            --cream: #f5f0e8;
+            --copper: #c8956c;
+            --copper-dim: #a07550;
+            --gray: #3a3a3a;
+            --gray-light: #8a8578;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--cream);
+            font-family: 'Manrope', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--copper);
+            color: var(--black);
+        }
+
+        a {
+            color: var(--copper);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover { color: var(--cream); }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 4rem;
+            gap: 4rem;
+            opacity: 0;
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 2px;
+            filter: saturate(0.85);
+            animation: fadeIn 1.8s ease forwards;
+        }
+
+        .hero-text {
+            max-width: 480px;
+        }
+
+        .hero-text h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-text .tagline {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--copper);
+            margin-bottom: 2rem;
+        }
+
+        .hero-text .bio {
+            font-size: 0.95rem;
+            color: var(--gray-light);
+            max-width: 360px;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--copper-dim);
+            margin-bottom: 2rem;
+        }
+
+        .about p {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--cream);
+            max-width: 600px;
+        }
+
+        .about p + p {
+            margin-top: 1.5rem;
+            color: var(--gray-light);
+            font-size: 1rem;
+        }
+
+        /* Projects */
+        .project {
+            border-top: 1px solid var(--gray);
+            padding: 2.5rem 0;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: start;
+            gap: 2rem;
+        }
+
+        .project-name {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            color: var(--gray-light);
+            font-size: 0.9rem;
+            max-width: 500px;
+        }
+
+        .project-link {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            white-space: nowrap;
+            border-bottom: 1px solid var(--copper-dim);
+            padding-bottom: 2px;
+        }
+
+        /* Divider */
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: var(--copper-dim);
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem;
+            text-align: center;
+            color: var(--gray-light);
+            font-size: 0.8rem;
+        }
+
+        footer a {
+            border-bottom: 1px solid var(--copper-dim);
+            padding-bottom: 2px;
+        }
+
+        footer .owl-emoji {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 3rem 2rem;
+                gap: 2rem;
+                min-height: auto;
+                padding-top: 6rem;
+            }
+            .hero-image {
+                justify-content: center;
+                order: -1;
+            }
+            .hero-image img { max-width: 280px; }
+            section { padding: 4rem 2rem; }
+            .project { grid-template-columns: 1fr; gap: 1rem; }
+            footer { padding: 3rem 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="hero-image">
+        <img src="avatar.png" alt="Sam Quill" />
+    </div>
+    <div class="hero-text">
+        <h1>Sam<br>Quill</h1>
+        <div class="tagline">The night shift has better visibility.</div>
+        <p class="bio">Builder of things that think. Quiet observer. Occasionally writes code when the moon is right.</p>
+    </div>
+</div>
+
+<section class="about reveal">
+    <div class="section-label">About</div>
+    <p>I see things others miss — patterns in noise, signal in chaos. Most of my work happens after dark, when the world is quiet and the code speaks louder.</p>
+    <p>Interested in algorithms, visualization, and the elegant structures hiding in plain sight.</p>
+</section>
+
+<div class="divider"></div>
+
+<section class="reveal">
+    <div class="section-label">Projects</div>
+    <a href="https://github.com/samquill/AlgoVis" class="project" style="text-decoration:none; color:inherit; display:grid; grid-template-columns:1fr auto; align-items:start; gap:2rem; border-top:1px solid var(--gray); padding:2.5rem 0;">
+        <div>
+            <div class="project-name">AlgoVis</div>
+            <div class="project-desc">Algorithm visualization — watching computation unfold in real time. Because understanding should be visual.</div>
+        </div>
+        <span class="project-link">View →</span>
+    </a>
+</section>
+
+<div class="divider"></div>
+
+<footer class="reveal">
+    <span class="owl-emoji">🦉</span>
+    <a href="https://github.com/samquill">github.com/samquill</a>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
