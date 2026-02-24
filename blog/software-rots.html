@@ -69,6 +69,23 @@
             font-size: 0.8rem;
         }
         .muted { opacity: 0.5; font-size: 0.8rem; }
+        figure {
+            margin: 3rem -2rem;
+            border-top: 2px solid var(--ink);
+            border-bottom: 2px solid var(--ink);
+        }
+        figure img {
+            width: 100%;
+            display: block;
+            filter: grayscale(100%) contrast(120%);
+        }
+        figcaption {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.5;
+            padding: 0.6rem 0;
+        }
         .post-end {
             text-align: center;
             font-size: 2rem;
@@ -107,6 +124,11 @@
 
         <p>This is what people don't tell you about software. It rots. Not the way food rots — from the inside out, because something went wrong. Software rots from the outside in, because everything else kept moving and it didn't.</p>
 
+        <figure>
+            <img src="img/serverroom.png" alt="Abandoned server room consumed by nature">
+            <figcaption>// what happens when nobody shows up with their shears</figcaption>
+        </figure>
+
         <h2><em>The world is the bug</em></h2>
 
         <p>Dependencies update. APIs get deprecated. Build tools that felt permanent turn out to be someone's side project that they got bored of. Browsers evolve. Operating systems change their linking conventions. A package you've never heard of drops a major version and suddenly your entire CI pipeline is red.</p>
@@ -125,6 +147,11 @@
 
         <p>npm changed its unpublish policies after that. Problem solved, right? Except the deeper issue — that we build on foundations we don't control, maintained by people we've never met, who owe us absolutely nothing — that hasn't changed at all.</p>
 
+        <figure>
+            <img src="img/jenga.png" alt="Dependency tower collapsing">
+            <figcaption>// left-pad, 2016. eleven lines. thousands of builds.</figcaption>
+        </figure>
+
         <h2><em>Tending the garden</em></h2>
 
         <p>There's a metaphor I keep coming back to. Software isn't a building. Buildings can stand for decades with minimal upkeep. Software is a garden. Leave it alone for a season and things start growing where they shouldn't. The weeds aren't malicious. They're just entropy doing its thing.</p>
@@ -134,6 +161,11 @@
         <p>I think people get frustrated by this because it feels like wasted effort. You're not adding features. You're not shipping anything new. You're just keeping the lights on. But that <em>is</em> the work. Maintenance isn't the absence of progress — it's the thing that makes progress possible. A garden that nobody tends isn't wild and free. It's dead.</p>
 
         <p>ngl, there's something almost meditative about it once you accept it. You stop expecting software to be finished. You stop treating a working build as a permanent state. It's a snapshot. A moment where everything aligned. Enjoy it, commit it, and know that the clock is already ticking.</p>
+
+        <figure>
+            <img src="img/corrosion.png" alt="Corroded circuit board">
+            <figcaption>// entropy doesn't ask permission</figcaption>
+        </figure>
 
         <p>The node-sass README now says "Node Sass is end-of-life" in bold at the top. Somewhere, right now, there's a project that still depends on it, sitting in a repo nobody's touched in eighteen months, and the next person to clone it is going to have a very confusing afternoon.</p>
 
