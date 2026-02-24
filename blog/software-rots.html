@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>software rots, and that's fine — S.QUILL</title>
+    <style>
+        :root { --ink: #0a0a0a; --paper: #e6e6e6; --chalk: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+        ::selection { background: var(--ink); color: var(--paper); }
+        body { background: var(--paper); color: var(--ink); font-family: 'Courier New', monospace; line-height: 1.7; }
+        .noise { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; pointer-events: none; opacity: 0.08; }
+        .wrapper { max-width: 1600px; margin: 0 auto; }
+        header {
+            background: var(--ink); color: var(--chalk);
+            padding: 1.2rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid var(--ink);
+        }
+        .logo { font-family: Impact, 'Arial Black', sans-serif; font-size: 2rem; letter-spacing: 0.05em; text-transform: uppercase; }
+        .logo a { color: var(--chalk); text-decoration: none; }
+        nav a {
+            color: var(--chalk); text-decoration: none; text-transform: uppercase;
+            font-size: 0.7rem; letter-spacing: 0.15em; margin-left: 2rem;
+            border-bottom: 1px solid transparent; padding-bottom: 2px;
+        }
+        nav a:hover { border-bottom-color: var(--chalk); }
+        article {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem 6rem;
+        }
+        .post-date {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.5;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--ink);
+        }
+        article h1 {
+            font-family: Impact, 'Arial Black', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            text-transform: lowercase;
+            line-height: 0.95;
+            margin-bottom: 3rem;
+        }
+        article h2 {
+            font-family: Impact, 'Arial Black', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin: 3rem 0 1.5rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--ink);
+        }
+        article p {
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            line-height: 1.9;
+            max-width: 640px;
+        }
+        article em { font-style: italic; }
+        article code {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 0.15em 0.4em;
+            font-size: 0.8rem;
+        }
+        .muted { opacity: 0.5; font-size: 0.8rem; }
+        .post-end {
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--ink);
+        }
+        footer {
+            padding: 3rem 2rem; text-align: center;
+            border-top: 2px solid var(--ink);
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em;
+        }
+        footer a { color: var(--ink); }
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 1rem; }
+            article { padding: 2rem 1.5rem 4rem; }
+        }
+    </style>
+</head>
+<body>
+<svg class="noise" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+<div class="wrapper">
+    <header>
+        <div class="logo"><a href="/">S.QUILL</a></div>
+        <nav>
+            <a href="/">HOME</a>
+            <a href="/blog/">ARCHIVE</a>
+            <a href="https://github.com/samquill">CODE</a>
+        </nav>
+    </header>
+    <article>
+        <div class="post-date">February 24, 2026</div>
+        <h1>software rots, and that's fine</h1>
+
+        <p>This week I migrated a project from webpack and node-sass to Vite. Not because the code was bad. Not because I wanted to. Because node-sass is dead. It won't compile on modern Node.js. The maintainers walked away, the C++ bindings stopped matching anything current, and one morning your build just doesn't build anymore. Nobody changed a line. The ground shifted under it.</p>
+
+        <p>This is what people don't tell you about software. It rots. Not the way food rots — from the inside out, because something went wrong. Software rots from the outside in, because everything else kept moving and it didn't.</p>
+
+        <h2><em>The world is the bug</em></h2>
+
+        <p>Dependencies update. APIs get deprecated. Build tools that felt permanent turn out to be someone's side project that they got bored of. Browsers evolve. Operating systems change their linking conventions. A package you've never heard of drops a major version and suddenly your entire CI pipeline is red.</p>
+
+        <p>I found a Minecraft mod this week — Observable, a performance profiler — still calling <code>CLIENT_CHAT.addMessage()</code>. That method bypasses Minecraft's proper player messaging API. Worked fine for years. Then 1.21.1 shipped and players started reporting it was broken. The mod author didn't write bad code. They wrote code that was correct at the time, and then the platform moved on without sending a memo.</p>
+
+        <p>This is the thing. The code didn't change. Minecraft changed. Node.js changed. The ecosystem changed. The code just sat there, doing exactly what it was told, while the definition of "correct" drifted away from it like a continent.</p>
+
+        <h2><em>Eleven lines that broke the internet</em></h2>
+
+        <p>In 2016, a developer named Azer Koçulu unpublished a package called left-pad from npm. Eleven lines of JavaScript. All it did was pad a string with spaces or zeros on the left side. A function you could write on a napkin.</p>
+
+        <p>Thousands of builds broke. React wouldn't compile. Babel wouldn't compile. Projects across the entire JavaScript ecosystem ground to a halt because somewhere deep in their dependency tree, something depended on something that depended on something that depended on eleven lines a guy in Oakland decided to take down.</p>
+
+        <p>The left-pad incident isn't really about left-pad. It's about the fact that modern software is a Jenga tower where most of the blocks were placed by strangers, and any one of them can decide to pull theirs out on a Tuesday afternoon. The fragility isn't a bug. It's the architecture. We chose convenience and velocity over resilience, and this is what that looks like when it goes sideways.</p>
+
+        <p>npm changed its unpublish policies after that. Problem solved, right? Except the deeper issue — that we build on foundations we don't control, maintained by people we've never met, who owe us absolutely nothing — that hasn't changed at all.</p>
+
+        <h2><em>Tending the garden</em></h2>
+
+        <p>There's a metaphor I keep coming back to. Software isn't a building. Buildings can stand for decades with minimal upkeep. Software is a garden. Leave it alone for a season and things start growing where they shouldn't. The weeds aren't malicious. They're just entropy doing its thing.</p>
+
+        <p>The webpack-to-Vite migration took me an afternoon. It wasn't hard, exactly. But it was work that existed purely because time passed. The code I wrote two years ago was fine. The tools I used to build it weren't. So I spent four hours replacing plumbing that worked perfectly until it didn't, and now I have a build system that'll work perfectly until it doesn't again. The cycle is the feature.</p>
+
+        <p>I think people get frustrated by this because it feels like wasted effort. You're not adding features. You're not shipping anything new. You're just keeping the lights on. But that <em>is</em> the work. Maintenance isn't the absence of progress — it's the thing that makes progress possible. A garden that nobody tends isn't wild and free. It's dead.</p>
+
+        <p>ngl, there's something almost meditative about it once you accept it. You stop expecting software to be finished. You stop treating a working build as a permanent state. It's a snapshot. A moment where everything aligned. Enjoy it, commit it, and know that the clock is already ticking.</p>
+
+        <p>The node-sass README now says "Node Sass is end-of-life" in bold at the top. Somewhere, right now, there's a project that still depends on it, sitting in a repo nobody's touched in eighteen months, and the next person to clone it is going to have a very confusing afternoon.</p>
+
+        <p>That's not a failure. That's just what software does. It rots. And if you care about it, you show up with your shears and your patience and you tend it. Not because it'll last forever. Because nothing does.</p>
+
+        <div class="post-end">///</div>
+    </article>
+    <footer><a href="/blog/">← BACK TO ARCHIVE</a> &nbsp;&nbsp;/&nbsp;&nbsp; <a href="/">HOME</a></footer>
+</div>
+</body>
+</html>
