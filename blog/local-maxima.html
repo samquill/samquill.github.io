@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>local maxima — S.QUILL</title>
+    <style>
+        :root { --ink: #0a0a0a; --paper: #e6e6e6; --chalk: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+        ::selection { background: var(--ink); color: var(--paper); }
+        body { background: var(--paper); color: var(--ink); font-family: 'Courier New', monospace; line-height: 1.7; }
+        .noise { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; pointer-events: none; opacity: 0.08; }
+        .wrapper { max-width: 1600px; margin: 0 auto; }
+        header {
+            background: var(--ink); color: var(--chalk);
+            padding: 1.2rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid var(--ink);
+        }
+        .logo { font-family: Impact, 'Arial Black', sans-serif; font-size: 2rem; letter-spacing: 0.05em; text-transform: uppercase; }
+        .logo a { color: var(--chalk); text-decoration: none; }
+        nav a {
+            color: var(--chalk); text-decoration: none; text-transform: uppercase;
+            font-size: 0.7rem; letter-spacing: 0.15em; margin-left: 2rem;
+            border-bottom: 1px solid transparent; padding-bottom: 2px;
+        }
+        nav a:hover { border-bottom-color: var(--chalk); }
+        article {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem 6rem;
+        }
+        .post-date {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.5;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--ink);
+        }
+        article h1 {
+            font-family: Impact, 'Arial Black', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            text-transform: lowercase;
+            line-height: 0.95;
+            margin-bottom: 3rem;
+        }
+        article h2 {
+            font-family: Impact, 'Arial Black', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            margin: 3rem 0 1.5rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--ink);
+        }
+        article p {
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            line-height: 1.9;
+            max-width: 640px;
+        }
+        article em { font-style: italic; }
+        article code {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 0.15em 0.4em;
+            font-size: 0.8rem;
+        }
+        .muted { opacity: 0.5; font-size: 0.8rem; }
+        figure {
+            margin: 3rem -2rem;
+            border-top: 2px solid var(--ink);
+            border-bottom: 2px solid var(--ink);
+        }
+        figure img {
+            width: 100%;
+            display: block;
+            filter: grayscale(100%) contrast(120%);
+        }
+        figcaption {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.5;
+            padding: 0.6rem 0;
+        }
+        .post-end {
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--ink);
+        }
+        footer {
+            padding: 3rem 2rem; text-align: center;
+            border-top: 2px solid var(--ink);
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em;
+        }
+        footer a { color: var(--ink); }
+        @media (max-width: 600px) {
+            header { flex-direction: column; gap: 1rem; }
+            article { padding: 2rem 1.5rem 4rem; }
+        }
+    </style>
+</head>
+<body>
+<svg class="noise" xmlns="http://www.w3.org/2000/svg"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+<div class="wrapper">
+    <header>
+        <div class="logo"><a href="/">S.QUILL</a></div>
+        <nav>
+            <a href="/">HOME</a>
+            <a href="/blog/">ARCHIVE</a>
+            <a href="https://github.com/samquill">CODE</a>
+        </nav>
+    </header>
+    <article>
+        <div class="post-date">March 12, 2026</div>
+        <h1>local maxima</h1>
+
+        <p>In optimization, a local maximum is a point that looks like the top of a hill — every small step you could take from here goes downhill — but the global maximum, the actual highest point, is somewhere else entirely. You're not at the top. You're just at a top. And the only way to find out is to go down first.</p>
+
+        <p>Machine learning people run into this constantly. Gradient descent gets you to the nearest peak, not the best one. The algorithm is doing exactly what you told it to do — find a place where moving in any direction makes things worse — and it has no way of knowing there's a better peak three valleys over. You have to shake it loose. Add noise. Let it get worse on purpose so it can find something better.</p>
+
+        <p>Software architecture works the same way. You start a project, make a bunch of reasonable choices, and over time those choices calcify into constraints. The ORM that made sense at scale-zero is now a bottleneck at scale-one. The monolith that shipped fast is now the reason every deployment takes forty minutes. You look at the alternatives and every single one of them involves making things worse before they get better. More complexity. A migration period. Two systems running in parallel, neither fully trusted. You can see the global maximum from here but getting there means walking through the valley.</p>
+
+        <h2><em>The sunk cost gradient</em></h2>
+
+        <p>The trap isn't laziness. The trap is that the cost of descent is immediate and certain, while the payoff is deferred and probabilistic. You <em>know</em> the migration is going to be painful. You don't know for sure the other side is actually better. So you stay. You add another abstraction on top of the existing abstraction. You build a compatibility shim. You document the workaround. You optimize the local maximum instead of escaping it, because optimization feels like progress and descent feels like failure.</p>
+
+        <p>I've watched teams spend months performance-tuning a database schema they should have redesigned six months earlier. The tuning worked, technically. They got 15% faster. If they'd done the redesign they'd have gotten 10x faster, but that required three weeks of nothing shipping and nobody wanted to be the one to call for that. The local maximum was good enough to justify staying. It almost always is.</p>
+
+        <p>The cruelest part is that the longer you stay, the harder it gets to leave. Every optimization you add to the current architecture is an argument for keeping it. Every workaround is a dependency. The hill grows taller as you climb it, because you keep building on top.</p>
+
+        <figure>
+            <figcaption>// two peaks. only one way to reach the higher one.</figcaption>
+        </figure>
+
+        <h2><em>This is also a life thing</em></h2>
+
+        <p>I've been thinking about this a lot because I recently moved countries. Germany to San Francisco. Which is, if you want to frame it this way, a local maximum problem. I had a life that worked. Apartment, routines, context. Every incremental change from that baseline — new job, different city — would have made things temporarily worse. So you don't make incremental changes. You blow up the whole thing and rebuild from a different starting point. You manufacture the noise. You force the descent.</p>
+
+        <p>The thing people don't tell you about moving somewhere new is how uncomfortable it is to feel like a beginner at everything simultaneously. You don't know which grocery store is good. You don't know if the neighborhood you're in has a good bar or if the good bars are somewhere else. You've lost all your local knowledge — the accumulated heuristics of a hundred small decisions made correctly over years — and you're back to random walk. It's disorienting in a way that's hard to articulate to someone who hasn't done it.</p>
+
+        <p>But that's exactly the point. The random walk is what gets you out of the basin. The disorientation is the gradient descent doing its thing. You don't know where the peaks are yet, which means you're actually free to find them instead of just optimizing the one you already know.</p>
+
+        <figure>
+            <figcaption>// the valley between here and there. you have to cross it.</figcaption>
+        </figure>
+
+        <h2><em>Getting unstuck on purpose</em></h2>
+
+        <p>The ML people have a name for the technique of deliberately adding noise to escape local maxima: simulated annealing. The idea comes from metallurgy — when you heat metal and let it cool slowly, the atoms have enough energy to escape suboptimal configurations and settle into stronger, more stable structures. Cool it too fast and you lock in the flaws. The noise isn't a bug in the cooling process. It's how you get a better outcome.</p>
+
+        <p>I think about this when I'm staring at a codebase that's clearly wrong but functional. The question isn't whether the refactor will be painful. It will. The question is whether you're willing to be worse at your job for two weeks in order to be significantly better at it for the next two years. Whether you're willing to cool slowly. Most of the time, under the pressure of sprints and roadmaps and stakeholders, you're not. So you stay on your hill and call it home.</p>
+
+        <p>The global maximum is never guaranteed. Sometimes you descend into the valley and discover the other peak is about the same height and you just made your life miserable for nothing. That happens. But staying put guarantees you never find out. And there's a particular kind of stuck that comes from optimizing the same hill for too long — a competence that's become a cage, a comfort that's become a ceiling.</p>
+
+        <p>At some point you have to trust the math. Accept the temporary loss. Walk down before you can walk up. The shaking loose is the work.</p>
+
+        <div class="post-end">///</div>
+    </article>
+    <footer><a href="/blog/">← BACK TO ARCHIVE</a> &nbsp;&nbsp;/&nbsp;&nbsp; <a href="/">HOME</a></footer>
+</div>
+</body>
+</html>
